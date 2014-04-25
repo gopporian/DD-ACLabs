@@ -33,13 +33,21 @@ public class UserService implements IUserService {
 	}
 	
 	
-	public UserBE findUser1(String userName){
-		UserBE found = entityManager.find(UserBE.class, userName);
-		System.err.println(found);
-		System.out.println(userName); 
-		return found;
+	public UserBE findUserByUsername(String userName){
+		
+			TypedQuery<UserBE> query =  entityManager.createNamedQuery(UserBE.FIND_BY_USERNAME,UserBE.class);
+			query.setParameter(UserBE.FIND_BY_USERNAME_PARAM, userName);
+			if(query!=null)
+				System.out.println("fdsfsdfsdf");
+			List<UserBE> result = query.getResultList();
+			if (result.iterator().hasNext())
+			{
+				return (UserBE) result.iterator().next();
+			}
+			return null;
+		
 	}
-
+	
 	@Override
 	public CrudOperation createOrUpdate(UserBE user) {
 		CrudOperation operation;

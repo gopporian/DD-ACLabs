@@ -51,9 +51,9 @@ public class Authorization implements Serializable{
 //        session.setAttribute("user", user);
 //        session.setAttribute("profile", password);
         
-        UserBE userfound = iUserService.findUser1(this.user);
+        UserBE userfound = iUserService.findUserByUsername(this.user);
 		
-        if(userfound.getPassword().equals(password)){
+        if(userfound!=null && userfound.getPassword().equals(password)){
         	return "/index.xhtml";
         }
         else   	
