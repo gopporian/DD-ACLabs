@@ -31,6 +31,14 @@ public class UserService implements IUserService {
 		UserBE found = entityManager.find(UserBE.class, id);
 		return found;
 	}
+	
+	
+	public UserBE findUser1(String userName){
+		UserBE found = entityManager.find(UserBE.class, userName);
+		System.err.println(found);
+		System.out.println(userName); 
+		return found;
+	}
 
 	@Override
 	public CrudOperation createOrUpdate(UserBE user) {

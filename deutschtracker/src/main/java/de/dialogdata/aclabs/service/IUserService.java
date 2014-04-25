@@ -12,6 +12,8 @@ import de.dialogdata.aclabs.enums.CrudOperation;
 public interface IUserService extends Serializable {
 
 	public UserBE findUser(Long id);
+	
+	public UserBE findUser1(String user);
 
 	public List<UserBE> paginate(int page, UserBE searchParameters);
 
