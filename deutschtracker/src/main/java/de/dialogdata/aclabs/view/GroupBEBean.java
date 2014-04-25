@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Named;
 
+import de.dialogdata.aclabs.common.AbstractBean;
 import de.dialogdata.aclabs.entities.GroupBE;
 import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
@@ -30,7 +31,7 @@ import de.dialogdata.aclabs.service.IUserService;
 
 @Named
 @SessionScoped
-public class GroupBEBean implements Serializable {
+public class GroupBEBean extends AbstractBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
