@@ -9,12 +9,12 @@ import de.dialogdata.aclabs.utils.SecurityUtils;
 @Named
 public class AbstractBean implements Serializable
 {
-    public boolean canCreate ( ) { return true; }
+    public boolean canRead ( ) { return true; }
     public boolean canDelete ( )
     {
     	return isTeacher ( );
     }
-    public boolean canRead ( )
+    public boolean canCreate ( )
     {
     	return isTeacher ( );
     }
@@ -25,7 +25,9 @@ public class AbstractBean implements Serializable
     
     private boolean isTeacher ( )
     {
-    	return SecurityUtils.getSession ( ).getAttribute ( profile ).equals ( "teacher" );
+    	return true; // doar pentru testare - cazul in care user-ul e admin - se da display
+    	//return false; // doar pentru testare - cazul in care user-ul nu e admin - nu se da display
+    	//return SecurityUtils.getSession ( ).getAttribute ( profile ).equals ( "teacher" );
     }
 	
 	private static final long serialVersionUID = 7699425363999956376L;

@@ -5,7 +5,10 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,6 +22,7 @@ import de.dialogdata.aclabs.enums.CrudOperation;
 import de.dialogdata.aclabs.enums.Level;
 
 @Stateless
+@NamedQueries({ @NamedQuery(name = GroupBE.FIND_BY_NAME, query = "Select e from GroupBE e where e.group.name = :"+GroupBE.FIND_BY_NAME_PARAM) })
 public class GroupService implements IGroupService {
 
 	private static final long serialVersionUID = -4161299389234314491L;
@@ -66,12 +70,15 @@ public class GroupService implements IGroupService {
 	}
 
 	@Override
-	public CrudOperation createOrUpdate(GroupBE group) {
+	public CrudOperation createOrUpdate(GroupBE group) throws GroupExistException {
 		CrudOperation operation;
 		if (group.getId() != null) {
 			entityManager.merge(group);
 			operation = CrudOperation.UPDATE;
 		} else {
+            assert group != null;
+			GroupBE found = entityManager.find(GroupBE.class, group.getName ( ));
+			if ( found != null ) throw new GroupExistException ( "This Group already exists. " );
 			entityManager.persist(group);
 			operation = CrudOperation.CREATE;
 		}

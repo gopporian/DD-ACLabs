@@ -17,7 +17,7 @@ public interface IGroupService extends Serializable {
 
 	public List<GroupBE> findAll();
 
-	public CrudOperation createOrUpdate(GroupBE group);
+	public CrudOperation createOrUpdate(GroupBE group) throws GroupExistException;
 
 	public void deleteGroup(Long id);
 

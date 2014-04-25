@@ -52,7 +52,7 @@
 					</h:panelGrid>
 					<h:panelGroup styleClass="buttons">
 						<h:commandLink value="Search" action="#{groupBEBean.search}" styleClass="btn btn-primary"/>
-						<h:commandLink value="Create New" action="#{groupBEBean.create}" styleClass="btn btn-primary"/>
+						<h:commandLink value="Create New" action="#{groupBEBean.create}" styleClass="btn btn-primary" rendered = "#{groupBEBean.canCreate}"/>
 					</h:panelGroup>
 				</h:panelGroup>
 			</f:validateBean>

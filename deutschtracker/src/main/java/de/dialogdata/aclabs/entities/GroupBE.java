@@ -17,6 +17,9 @@ import de.dialogdata.aclabs.enums.Level;
 public class GroupBE implements Serializable {
 
 	private static final long serialVersionUID = -420738800030250028L;
+	
+	public static final String FIND_BY_NAME = "GroupBE.FIND_BY_NAME";
+	public final static String FIND_BY_NAME_PARAM = "group";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
