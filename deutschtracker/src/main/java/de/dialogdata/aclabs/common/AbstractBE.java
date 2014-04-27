@@ -1,13 +1,21 @@
 package de.dialogdata.aclabs.common;
 
 import java.io.Serializable;
-
 import javax.inject.Named;
 
-import de.dialogdata.aclabs.utils.SecurityUtils;
+
+/**
+ * Class which checks the permissions of an user
+ * 
+ * Current permissions :
+ * 
+ *          read  |  create |  delete  |  update  |
+ * student   X    |    -    |    -     |    -     |
+ * teacher   X    |    X    |    X     |    X     |
+ */
 
 @Named
-public class AbstractBean implements Serializable
+public class AbstractBE implements Serializable
 {
     public boolean canRead ( ) { return true; }
     public boolean canDelete ( )

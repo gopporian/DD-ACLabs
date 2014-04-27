@@ -30,6 +30,8 @@ public class UserBE implements Serializable {
 	public final static String FIND_BY_GROUP_GROUP_ID_PARAM = "groupid";
 	public final static String FIND_BY_USERNAME_PARAM ="username";
 	public final static String FIND_BY_USERNAME ="UserBE.FIND_BY_USERNAME";
+	public static final String FIND_BY_FIRST_NAME = "UserBE.FIND_BY_FIRST_NAME";
+	public static final String FIND_BY_FIRST_NAME_PARAM = "firstName";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -7,6 +7,7 @@ import javax.ejb.Local;
 
 import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
+import de.dialogdata.aclabs.exceptions.UserExistException;
 
 @Local
 public interface IUserService extends Serializable {
@@ -19,7 +20,7 @@ public interface IUserService extends Serializable {
 
 	public List<UserBE> findAll();
 
-	public CrudOperation createOrUpdate(UserBE user);
+	public CrudOperation createOrUpdate(UserBE user) throws UserExistException;
 
 	public void deleteUser(Long id);
 

@@ -1,7 +1,10 @@
-package de.dialogdata.aclabs.service;
+package de.dialogdata.aclabs.exceptions;
 
-public class GroupExistException extends Exception {
-	public GroupExistException(String message) {
-		super(message);
+@SuppressWarnings("serial")
+public class GroupExistException extends Exception
+{
+	public GroupExistException ( String message ) 
+	{
+		super ( message );
 	}
 }

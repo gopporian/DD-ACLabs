@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,6 +19,7 @@ import de.dialogdata.aclabs.entities.GroupBE;
 import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
 import de.dialogdata.aclabs.enums.Level;
+import de.dialogdata.aclabs.exceptions.GroupExistException;
 
 @Stateless
 @NamedQueries({ @NamedQuery(name = GroupBE.FIND_BY_NAME, query = "Select e from GroupBE e where e.group.name = :"+GroupBE.FIND_BY_NAME_PARAM) })
