@@ -60,13 +60,14 @@ public class UserService implements IUserService {
 			operation = CrudOperation.UPDATE;
 		} else {
 			// se verifica existenta user-ului inainte de creare
-			assert user != null;
-			// cauta dupa firstName
-			UserBE found = entityManager.find ( UserBE.class, user.getFirstName ( ) );
-			// daca s-a gasit , compara si primul nume
-			if ( found != null && found.getLastName ( ).equals ( user.getLastName ( ) ) ) 
-				// daca si primul nume coincide , user-ul exista deja
-				   throw new UserExistException ( "This User already exists. " );
+//			assert user != null;
+//			// cauta dupa firstName
+//			UserBE found = entityManager
+//					.find(UserBE.class, user.getFirstName());
+//			// daca s-a gasit , compara si primul nume
+//			if (found != null && found.getLastName().equals(user.getLastName()))
+//				// daca si primul nume coincide , user-ul exista deja
+//				throw new UserExistException("This User already exists. ");
 			// daca s-a ajuns aici , creaza user-ul
 			entityManager.persist(user);
 			operation = CrudOperation.CREATE;

@@ -53,7 +53,7 @@ public class Authorization implements Serializable{
         
         UserBE userfound = iUserService.findUserByUsername(this.user);
 		
-        if(userfound!=null && userfound.getPassword().equals(password)){
+        if(userfound!=null && userfound.getPassword().equals(SecurityUtils.encryptString(password) )){
         	return "/index.xhtml";
         }
         else   	
