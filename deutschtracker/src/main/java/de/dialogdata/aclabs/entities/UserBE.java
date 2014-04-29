@@ -17,6 +17,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import de.dialogdata.aclabs.enums.Profiles;
+
 @Entity
 @XmlRootElement
 
@@ -50,6 +52,9 @@ public class UserBE implements Serializable {
 
 	@Column
 	private String password;
+	
+	@Column
+	private Profiles profile;
 
 	@Temporal(TemporalType.DATE)
 	private Date lastLogin;
