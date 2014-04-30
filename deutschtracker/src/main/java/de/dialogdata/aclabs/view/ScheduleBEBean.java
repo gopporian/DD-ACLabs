@@ -2,17 +2,27 @@ package de.dialogdata.aclabs.view;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
-public class ScheduleController implements Serializable {
+import org.primefaces.event.ScheduleEntryMoveEvent;
+import org.primefaces.event.ScheduleEntryResizeEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleEvent;
+import org.primefaces.model.ScheduleModel;
+
+public class ScheduleBEBean implements Serializable {
 
 	private ScheduleModel eventModel;
 
 	private ScheduleEvent event = new DefaultScheduleEvent();
 
-	public ScheduleController() {
+	public ScheduleBEBean() {
 		eventModel = new DefaultScheduleModel();
 		eventModel.addEvent(new DefaultScheduleEvent("Champions League Match",
 				previousDay8Pm(), previousDay11Pm()));
@@ -29,8 +39,8 @@ public class ScheduleController implements Serializable {
 		Calendar date = Calendar.getInstance();
 		date.setTime(base);
 		date.add(Calendar.DATE, ((int) (Math.random() * 30)) + 1); // set random
-																	// day of
-																	// month
+		// day of
+		// month
 
 		return date.getTime();
 	}
