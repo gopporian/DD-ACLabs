@@ -52,6 +52,7 @@ public class Authorization implements Serializable{
         UserBE userfound = iUserService.findUserByUsername(this.user);
 		
         if(userfound!=null && userfound.getPassword().equals(SecurityUtils.encryptString(password) )){
+        	
         	session.setAttribute("user", userfound);
         	return "/index.xhtml";
         }
@@ -64,16 +65,13 @@ public class Authorization implements Serializable{
         }
 	}
 	
-	 public String logout() {
+	 public String logOut() {
 	    HttpSession session = SecurityUtils.getSession();
 	    session.invalidate();
 	    
 	    return "/login.xhtml";
 	   }
-	public boolean isLoggedIn() {
-		
-		return false;
-	}
+	
 
 	
 }

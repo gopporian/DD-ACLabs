@@ -21,6 +21,7 @@
 
 	<div class="container forgecontainer">
 		<div id="navigation" style="width: 120px">
+		<h:form>
 			<ul>
 			<h:link id="homeLink" outcome="/index.xhtml"> Home
 				<!-- img src="#{resource['forge-logo.png']}" alt="Forge... get hammered" border="0" /-->
@@ -31,11 +32,13 @@
 				<li>
 					<h:link outcome="/userBE/search" value="Users"/>
 				</li>				
-				<li>
-					<h:commandButton id="logout" value="LogOut" action="#{auth.logOut}"/>
-				</li>
+				
+				<li>					
+					<h:commandLink value="Logout"  action="#{auth.logOut}"/>
+				</li>			
 				
 			</ul>
+			</h:form>
 		</div>
 
 		<div id="content">
