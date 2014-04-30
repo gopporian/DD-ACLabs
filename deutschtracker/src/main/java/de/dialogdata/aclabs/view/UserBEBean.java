@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Named;
 
-import de.dialogdata.aclabs.common.AbstractBE;
+import de.dialogdata.aclabs.common.AbstractBEBean;
 import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
 import de.dialogdata.aclabs.exceptions.UserExistException;
