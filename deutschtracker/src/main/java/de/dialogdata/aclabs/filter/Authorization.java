@@ -21,7 +21,7 @@ public class Authorization implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private boolean isLoggedIn = false;
+
 
 	@EJB
 	private IUserService iUserService;
@@ -48,13 +48,12 @@ public class Authorization implements Serializable{
 	public String logIn()
 	{
 		HttpSession session = SecurityUtils.getSession();
-        session.setAttribute("user", user);
-        //session.setAttribute("profile", password);
+//        session.setAttribute("user", user);
+//        session.setAttribute("profile", password);
         
         UserBE userfound = iUserService.findUserByUsername(this.user);
 		
-        if(userfound!=null && userfound.getPassword().equals(password)){
-        	isLoggedIn = true;
+        if(userfound!=null && userfound.getPassword().equals(SecurityUtils.encryptString(password) )){
         	return "/index.xhtml";
         }
         else   	
@@ -69,13 +68,12 @@ public class Authorization implements Serializable{
 	 public String logout() {
 	    HttpSession session = SecurityUtils.getSession();
 	    session.invalidate();
-	    isLoggedIn = false;
 	    
 	    return "/login.xhtml";
 	   }
 	public boolean isLoggedIn() {
 		
-		return isLoggedIn;
+		return false;
 	}
 
 	

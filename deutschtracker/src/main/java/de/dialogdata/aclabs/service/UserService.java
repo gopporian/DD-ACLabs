@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -15,8 +17,10 @@ import javax.persistence.criteria.Root;
 import de.dialogdata.aclabs.entities.GroupBE;
 import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
+import de.dialogdata.aclabs.exceptions.UserExistException;
 
 @Stateless
+@NamedQueries({ @NamedQuery(name = UserBE.FIND_BY_FIRST_NAME, query = "Select e from UserBE e where e.user.firstName = :"+UserBE.FIND_BY_FIRST_NAME_PARAM) })
 public class UserService implements IUserService {
 
 	private static final long serialVersionUID = 4733232389411427332L;
@@ -49,12 +53,22 @@ public class UserService implements IUserService {
 	}
 	
 	@Override
-	public CrudOperation createOrUpdate(UserBE user) {
+	public CrudOperation createOrUpdate(UserBE user) throws UserExistException {
 		CrudOperation operation;
 		if (user.getId() != null) {
 			entityManager.merge(user);
 			operation = CrudOperation.UPDATE;
 		} else {
+			// se verifica existenta user-ului inainte de creare
+//			assert user != null;
+//			// cauta dupa firstName
+//			UserBE found = entityManager
+//					.find(UserBE.class, user.getFirstName());
+//			// daca s-a gasit , compara si primul nume
+//			if (found != null && found.getLastName().equals(user.getLastName()))
+//				// daca si primul nume coincide , user-ul exista deja
+//				throw new UserExistException("This User already exists. ");
+			// daca s-a ajuns aici , creaza user-ul
 			entityManager.persist(user);
 			operation = CrudOperation.CREATE;
 		}

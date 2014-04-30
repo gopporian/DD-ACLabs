@@ -7,6 +7,7 @@ import javax.ejb.Local;
 
 import de.dialogdata.aclabs.entities.GroupBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
+import de.dialogdata.aclabs.exceptions.GroupExistException;
 
 @Local
 public interface IGroupService extends Serializable {

@@ -11,9 +11,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Named;
 
-import de.dialogdata.aclabs.common.AbstractBean;
+import de.dialogdata.aclabs.common.AbstractBE;
 import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
+import de.dialogdata.aclabs.exceptions.UserExistException;
 import de.dialogdata.aclabs.service.IUserService;
 import de.dialogdata.aclabs.service.UserService;
 import de.dialogdata.aclabs.utils.SecurityUtils;
@@ -30,7 +31,7 @@ import de.dialogdata.aclabs.utils.SecurityUtils;
 
 @Named
 @SessionScoped
-public class UserBEBean extends AbstractBean implements Serializable {
+public class UserBEBean extends AbstractBE implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -131,7 +132,13 @@ public class UserBEBean extends AbstractBean implements Serializable {
 			case UPDATE:
 				return "view?faces-redirect=true&id=" + this.userBE.getId();
 			}
-		} catch (Exception e) {
+		} 
+		catch ( UserExistException e )
+		{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+		}
+		catch (Exception e) 
+		{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 		}
 		return null;
