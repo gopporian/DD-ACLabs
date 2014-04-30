@@ -26,17 +26,18 @@
 			<h:link id="homeLink" outcome="/index.xhtml"> Home
 				<!-- img src="#{resource['forge-logo.png']}" alt="Forge... get hammered" border="0" /-->
 			</h:link>
+			
 				<li>
 					<h:link outcome="/groupBE/search" value="Groups"/>
 				</li>
 				<li>
 					<h:link outcome="/userBE/search" value="Users"/>
 				</li>				
-				
+
 				<li>					
 					<h:commandLink value="Logout"  action="#{auth.logOut}"/>
 				</li>			
-				
+
 			</ul>
 			</h:form>
 		</div>
