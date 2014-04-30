@@ -13,7 +13,7 @@ import de.dialogdata.aclabs.utils.SecurityUtils;
 @WebListener
 public class InitializationListner implements ServletContextListener{
 
-	private static final String ADMIN = "Admin";
+	private static final String ADMIN = "admin";
 	@EJB
 	private IUserService iUserService;
 	
