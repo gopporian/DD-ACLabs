@@ -31,7 +31,7 @@ import de.dialogdata.aclabs.utils.SecurityUtils;
 
 @Named
 @SessionScoped
-public class UserBEBean extends AbstractBE implements Serializable {
+public class UserBEBean extends AbstractBEBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
