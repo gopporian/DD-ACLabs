@@ -29,13 +29,8 @@ public class AuthorizationFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         UserBE user = (UserBE) req.getSession().getAttribute("user");
 
-<<<<<<< HEAD
+
         if ((user != null ) || req.getRequestURI().endsWith("login.xhtml")) {
-=======
-        if ((auth != null && auth.isLoggedIn()) || req.getRequestURI().endsWith("login.xhtml")) {
-        	       	
-        	// User is logged in, so just continue request.
->>>>>>> 3e77563b63d972c706103e341008692835ddeea9
         	
             chain.doFilter(request, response);
         } else {
