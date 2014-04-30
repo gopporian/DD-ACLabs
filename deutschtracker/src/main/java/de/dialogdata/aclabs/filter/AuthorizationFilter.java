@@ -12,6 +12,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import de.dialogdata.aclabs.entities.UserBE;
+
 
 public class AuthorizationFilter implements Filter {
 
@@ -25,12 +27,11 @@ public class AuthorizationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {    
         HttpServletRequest req = (HttpServletRequest) request;
-        Authorization auth = (Authorization) req.getSession().getAttribute("auth");
+        UserBE user = (UserBE) req.getSession().getAttribute("user");
 
-        if ((auth != null && auth.isLoggedIn()) || req.getRequestURI().endsWith("login.xhtml")) {
+
+        if ((user != null ) || req.getRequestURI().endsWith("login.xhtml")) {
         	
-        	
-            // User is logged in, so just continue request.
             chain.doFilter(request, response);
         } else {
             // User is not logged in, so redirect to login
