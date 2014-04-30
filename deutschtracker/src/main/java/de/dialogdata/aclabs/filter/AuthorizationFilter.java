@@ -28,9 +28,9 @@ public class AuthorizationFilter implements Filter {
         Authorization auth = (Authorization) req.getSession().getAttribute("auth");
 
         if ((auth != null && auth.isLoggedIn()) || req.getRequestURI().endsWith("login.xhtml")) {
+        	       	
+        	// User is logged in, so just continue request.
         	
-        	
-            // User is logged in, so just continue request.
             chain.doFilter(request, response);
         } else {
             // User is not logged in, so redirect to login
