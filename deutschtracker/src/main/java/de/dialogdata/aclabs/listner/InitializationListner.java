@@ -6,7 +6,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import de.dialogdata.aclabs.entities.UserBE;
-import de.dialogdata.aclabs.exceptions.UserExistException;
+import de.dialogdata.aclabs.exceptions.UserExistsException;
 import de.dialogdata.aclabs.service.IUserService;
 import de.dialogdata.aclabs.utils.SecurityUtils;
 
@@ -33,7 +33,7 @@ public class InitializationListner implements ServletContextListener{
 		adminUser.setPassword(SecurityUtils.encryptString(ADMIN));
 		try {
 			iUserService. createOrUpdate(adminUser);
-		} catch (UserExistException e) {
+		} catch (UserExistsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

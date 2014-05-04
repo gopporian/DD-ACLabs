@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{classBEBean.page}"/>
+		<f:event type="preRenderView" listener="#{classBEBean.paginate}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Class entities"/>
+
+	<ui:define name="header">
+		Class
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Classes
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="3">
+						<h:outputLabel for="classBEBeanExampleGroup" value="Group:"/>
+						<h:panelGroup>
+							<h:inputText id="classBEBeanExampleGroup" value="#{classBEBean.example.group}"/>
+							<h:message for="classBEBeanExampleGroup" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						
+						<h:outputLabel for="classBEBeanExampleDay" value="Day:"/>
+						<h:panelGroup>
+							<h:inputText id="classBEBeanExampleDay" value="#{classBEBean.example.day}"/>
+							<h:message for="classBEBeanExampleDay" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						
+					</h:panelGrid>
+					<h:panelGroup styleClass="buttons">
+						<h:commandLink value="Search" action="#{classBEBean.search}" styleClass="btn btn-primary"/>
+						<h:commandLink value="Create New" action="#{classBEBean.create}" styleClass="btn btn-primary" rendered = "#{classBEBean.canCreate}"/>
+					</h:panelGroup>
+				</h:panelGroup>
+			</f:validateBean>
+			
+			<h:dataTable id="classBEBeanPageItems" styleClass="data-table" value="#{classBEBean.pageItems}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Group"/>
+					</f:facet>
+					<h:link outcome="/classBE/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemGroup" value="#{_item.group}"/>
+					</h:link>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Day"/>
+					</f:facet>
+					<h:link outcome="/classBE/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemDay" value="#{_item.day}"/>
+					</h:link>
+				</h:column>
+			
+			</h:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value="#{classBEBean}"/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>

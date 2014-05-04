@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:forgeview="http://jboss.org/forge/view"	
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{classBEBean.id}"/>
+		<f:event type="preRenderView" listener="#{classBEBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create Class "/>
+
+	<ui:define name="header">
+		Class
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test="#{!empty classBEBean.id}">
+				Edit existing Class
+			</c:when>
+			<c:otherwise>
+				Create a new Class
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error"/>
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="classBEBeanClassBEName" value="Name:"/>
+				<h:panelGroup>
+					<h:inputText id="classBEBeanClassBEName" value="#{classBEBean.classBE.name}"/>
+					<h:message for="classBEBeanClassBEName" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				
+				<h:outputLabel for="classBEBeanClassBEDay" value="Day:"/>
+				<h:panelGroup>
+					<h:inputText id="classBEBeanClassBEDay" value="#{classBEBean.classBE.day}"/>
+					<h:message for="classBEBeanClassBEDay" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				
+				<h:outputLabel for="classBEBeanClassBEBeginHour" value="Begining hour:"/>
+				<h:panelGroup>
+					<h:inputText id="classBEBeanClassBEBeginingHour" value="#{classBEBean.classBE.beginHour}"/>
+					<h:message for="classBEBeanClassBEBeginingHour" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				
+				<h:outputLabel for="classBEBeanClassBEEndHour" value="Ending hour:"/>
+				<h:panelGroup>
+					<h:inputText id="classBEBeanClassBEEndingHour" value="#{classBEBean.classBE.endHour}"/>
+					<h:message for="classBEBeanClassBEEndingHour" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				
+				<h:outputText/>
+					<c:choose>
+					<c:when test="#{!empty classBEBean.id}">
+				<h:outputLabel for="classBEBeanClassBEGroups" value="Groups:"/>
+				<h:panelGroup>
+					<ui:param name="_collection" value="#{classBEBean.groups}"/>
+					<h:dataTable id="classBEBeanClassBEGroups" styleClass="data-table" value="#{forgeview:asList(_collection)}" var="_item">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Group Name"/>
+							</f:facet>
+							<h:link outcome="/groupBE/view">
+								<f:param name="id" value="#{_item.id}"/>
+								<h:outputText id="itemName" value="#{_item.Name}"/>
+							</h:link>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+				<h:outputText/>
+				</c:when>
+				</c:choose>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandLink value="Save" action="#{classBEBean.update}" styleClass="btn btn-primary"/>
+				<c:choose>
+					<c:when test="#{!empty classBEBean.id}">
+						<h:link value="Cancel" outcome="view" styleClass="btn btn-primary">
+							<f:param name="id" value="#{classBEBean.id}"/>
+						</h:link>
+						<h:commandLink value="Delete" action="#{classBEBean.delete}" styleClass="btn btn-primary"/>
+					</c:when>
+					<c:otherwise>
+						<h:link value="Cancel" outcome="search" styleClass="btn btn-primary"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
