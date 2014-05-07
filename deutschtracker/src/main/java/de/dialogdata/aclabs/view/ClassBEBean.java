@@ -12,17 +12,18 @@ import javax.faces.convert.Converter;
 import javax.inject.Named;
 
 import de.dialogdata.aclabs.common.AbstractBEBean;
-import de.dialogdata.aclabs.entities.UserBE;
+import de.dialogdata.aclabs.entities.ClassBE;
+import de.dialogdata.aclabs.entities.GroupBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
-import de.dialogdata.aclabs.exceptions.UserExistsException;
-import de.dialogdata.aclabs.service.IUserService;
-import de.dialogdata.aclabs.service.UserService;
-import de.dialogdata.aclabs.utils.SecurityUtils;
+import de.dialogdata.aclabs.exceptions.ClassExistsException;
+import de.dialogdata.aclabs.service.GroupService;
+import de.dialogdata.aclabs.service.IClassService;
+import de.dialogdata.aclabs.service.IGroupService;
 
 /**
- * Backing bean for UserBE entities.
+ * Backing bean for ClassBE entities.
  * <p>
- * This class provides CRUD functionality for all UserBE entities. It focuses
+ * This class provides CRUD functionality for all ClassBE entities. It focuses
  * purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt> for
  * state management, <tt>PersistenceContext</tt> for persistence,
  * <tt>CriteriaBuilder</tt> for searches) rather than introducing a CRUD
@@ -31,34 +32,25 @@ import de.dialogdata.aclabs.utils.SecurityUtils;
 
 @Named
 @SessionScoped
-public class UserBEBean extends AbstractBEBean implements Serializable {
+public class ClassBEBean extends AbstractBEBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	private IUserService userSerivce;
+	private IGroupService groupService;
+	
+	@EJB
+	private IClassService classService;
 
 	private Long id;
 
-	private UserBE userBE;
+	private ClassBE classBE;
 
-	private UserBE example = new UserBE();
+	private ClassBE example = new ClassBE();
 
 	private int page;
 	private long count;
-	private List<UserBE> pageItems;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public UserBE getUserBE() {
-		return userBE;
-	}
+	private List<ClassBE> pageItems;
 
 	public int getPage() {
 		return this.page;
@@ -69,14 +61,14 @@ public class UserBEBean extends AbstractBEBean implements Serializable {
 	}
 
 	public int getPageSize() {
-		return UserService.PAGE_SIZE;
+		return GroupService.PAGE_SIZE;
 	}
 
-	public UserBE getExample() {
+	public ClassBE getExample() {
 		return this.example;
 	}
 
-	public void setExample(UserBE example) {
+	public void setExample(ClassBE example) {
 		this.example = example;
 	}
 
@@ -84,12 +76,16 @@ public class UserBEBean extends AbstractBEBean implements Serializable {
 		this.page = 0;
 	}
 
-	public List<UserBE> getPageItems() {
-		return this.pageItems;
+	public Long getId() {
+		return this.id;
 	}
 
-	public long getCount() {
-		return this.count;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public ClassBE getClassBE() {
+		return this.classBE;
 	}
 
 	public String create() {
@@ -101,44 +97,40 @@ public class UserBEBean extends AbstractBEBean implements Serializable {
 		if (FacesContext.getCurrentInstance().isPostback()) {
 			return;
 		}
-
 		if (this.id == null) {
-			this.userBE = this.example;
+			this.classBE = this.example;
 		} else {
-			this.userBE = userSerivce.findUser(id);
-			if (userBE == null) {
-				userBE = new UserBE();
-				example = new UserBE();
+			this.classBE = classService.findClass(id);
+			if (classBE == null) {
+				classBE = new ClassBE();
+				example = new ClassBE();
 			}
 		}
 	}
 
-	public UserBE findById(Long id) {
-		return userSerivce.findUser(getId());
+	public ClassBE findById(Long id) {
+		return classService.findClass(getId());
 	}
 
 	/*
-	 * Support updating and deleting UserBE entities
+	 * Support updating and deleting GroupBE entities
 	 */
 
 	@SuppressWarnings("incomplete-switch")
 	public String update() {
-		userBE.setPassword(SecurityUtils.encryptString(userBE.getPassword()));
 		try {
-			CrudOperation result = userSerivce.createOrUpdate(userBE);
+			CrudOperation result = classService.createOrUpdate(classBE);
 			switch (result) {
 			case CREATE:
 				return "search?faces-redirect=true";
 			case UPDATE:
-				return "view?faces-redirect=true&id=" + this.userBE.getId();
+				return "view?faces-redirect=true&id=" + classBE.getId();
 			}
-		} 
-		catch ( UserExistsException e )
+		} catch ( ClassExistsException e )
 		{
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));	
 		}
-		catch (Exception e) 
-		{
+		catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 		}
 		return null;
@@ -146,7 +138,7 @@ public class UserBEBean extends AbstractBEBean implements Serializable {
 
 	public String delete() {
 		try {
-			userSerivce.deleteUser(getId());
+			classService.deleteClass(getId());
 			return "search?faces-redirect=true";
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
@@ -155,14 +147,26 @@ public class UserBEBean extends AbstractBEBean implements Serializable {
 	}
 
 	public void paginate() {
-		pageItems = userSerivce.paginate(getPage(), example);
+		pageItems = classService.paginate(page, example);
 		count = pageItems.size();
-		example = new UserBE();
+		example = new ClassBE();
 		id = null;
 	}
 
-	public List<UserBE> getAll() {
-		return userSerivce.findAll();
+	public List<ClassBE> getPageItems() {
+		return this.pageItems;
+	}
+
+	public long getCount() {
+		return this.count;
+	}
+
+	public List<ClassBE> getAll() {
+		return classService.findAll();
+	}
+	
+	public List<GroupBE> getGroups(){
+		return groupService.getGroupsForClass(getId());
 	}
 
 	public Converter getConverter() {
@@ -172,7 +176,7 @@ public class UserBEBean extends AbstractBEBean implements Serializable {
 			@Override
 			public Object getAsObject(FacesContext context, UIComponent component, String value) {
 
-				return userSerivce.findUser(Long.valueOf(value));
+				return classService.findClass(Long.valueOf(value));
 			}
 
 			@Override
@@ -182,7 +186,7 @@ public class UserBEBean extends AbstractBEBean implements Serializable {
 					return "";
 				}
 
-				return String.valueOf(((UserBE) value).getId());
+				return String.valueOf(((ClassBE) value).getId());
 			}
 		};
 	}

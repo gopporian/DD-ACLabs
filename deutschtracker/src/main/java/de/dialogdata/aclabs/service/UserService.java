@@ -17,7 +17,7 @@ import javax.persistence.criteria.Root;
 import de.dialogdata.aclabs.entities.GroupBE;
 import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
-import de.dialogdata.aclabs.exceptions.UserExistException;
+import de.dialogdata.aclabs.exceptions.UserExistsException;
 
 @Stateless
 @NamedQueries({ @NamedQuery(name = UserBE.FIND_BY_FIRST_NAME, query = "Select e from UserBE e where e.user.firstName = :"+UserBE.FIND_BY_FIRST_NAME_PARAM) })
@@ -53,12 +53,12 @@ public class UserService implements IUserService {
 	}
 	
 	@Override
-	public CrudOperation createOrUpdate(UserBE user) throws UserExistException {
+	public CrudOperation createOrUpdate(UserBE user) throws UserExistsException {
 		CrudOperation operation;
 		
 		UserBE foundUser = this.findUserByUsername(user.getUserName());
 		if (foundUser != null){
-			throw new UserExistException("This User already exists. ");
+			throw new UserExistsException("This User already exists. ");
 		}
 		
 		if (user.getId() != null) {

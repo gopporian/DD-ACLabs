@@ -20,6 +20,8 @@ public class GroupBE implements Serializable {
 	
 	public static final String FIND_BY_NAME = "GroupBE.FIND_BY_NAME";
 	public static final String FIND_BY_NAME_PARAM = "group";
+	public static final String FIND_BY_CLASS = "GroupBE.FIND_BY_CLASS";
+	public static final String FIND_BY_CLASS_PARAM = "aClass";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

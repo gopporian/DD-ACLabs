@@ -1,9 +1,9 @@
 package de.dialogdata.aclabs.exceptions;
 
 @SuppressWarnings("serial")
-public class UserExistException extends Exception 
+public class UserExistsException extends Exception 
 {
-	public UserExistException ( String message )
+	public UserExistsException ( String message )
 	{
 		super ( message );
 	}
