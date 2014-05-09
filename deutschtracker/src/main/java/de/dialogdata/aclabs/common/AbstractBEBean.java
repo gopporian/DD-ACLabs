@@ -1,7 +1,12 @@
 package de.dialogdata.aclabs.common;
 
 import java.io.Serializable;
+
 import javax.inject.Named;
+
+import de.dialogdata.aclabs.entities.UserBE;
+import de.dialogdata.aclabs.enums.Profiles;
+import de.dialogdata.aclabs.utils.SecurityUtils;
 
 /**
  * Class which checks the permissions of an user
@@ -32,12 +37,8 @@ public class AbstractBEBean implements Serializable {
 	}
 
 	private boolean isTeacher() {
-		return true; // doar pentru testare - cazul in care user-ul e admin - se
-						// da display
-		// return false; // doar pentru testare - cazul in care user-ul nu e
-		// admin - nu se da display
-		// return SecurityUtils.getSession ( ).getAttribute ( profile ).equals (
-		// "teacher" );
+		UserBE logedinUser = (UserBE) SecurityUtils.getSession().getAttribute("user");
+		return logedinUser.getProfile().equals(Profiles.teacher);
 	}
 
 	private static final long serialVersionUID = 7699425363999956376L;

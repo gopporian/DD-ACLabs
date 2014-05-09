@@ -80,30 +80,6 @@ public class UserBE implements Serializable {
 		this.version = version;
 	}
 
-	@Override
-	public boolean equals(Object that) {
-		if (this == that) {
-			return true;
-		}
-		if (that == null) {
-			return false;
-		}
-		if (getClass() != that.getClass()) {
-			return false;
-		}
-		if (id != null) {
-			return id.equals(((UserBE) that).id);
-		}
-		return super.equals(that);
-	}
-
-	@Override
-	public int hashCode() {
-		if (id != null) {
-			return id.hashCode();
-		}
-		return super.hashCode();
-	}
 
 	public String getFirstName() {
 		return this.firstName;
@@ -145,20 +121,6 @@ public class UserBE implements Serializable {
 		this.lastLogin = lastLogin;
 	}
 
-	@Override
-	public String toString() {
-		String result = getClass().getSimpleName() + " ";
-		if (firstName != null && !firstName.trim().isEmpty())
-			result += "firstName: " + firstName;
-		if (lastName != null && !lastName.trim().isEmpty())
-			result += ", lastName: " + lastName;
-		if (userName != null && !userName.trim().isEmpty())
-			result += ", userName: " + userName;
-		if (password != null && !password.trim().isEmpty())
-			result += ", password: " + password;
-		return result;
-	}
-
 	public GroupBE getGroup() {
 		return this.group;
 	}
@@ -166,4 +128,94 @@ public class UserBE implements Serializable {
 	public void setGroup(final GroupBE group) {
 		this.group = group;
 	}
+
+	public Profiles getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profiles profile) {
+		this.profile = profile;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((group == null) ? 0 : group.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((lastLogin == null) ? 0 : lastLogin.hashCode());
+		result = prime * result
+				+ ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((profile == null) ? 0 : profile.hashCode());
+		result = prime * result
+				+ ((userName == null) ? 0 : userName.hashCode());
+		result = prime * result + version;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserBE other = (UserBE) obj;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (group == null) {
+			if (other.group != null)
+				return false;
+		} else if (!group.equals(other.group))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (lastLogin == null) {
+			if (other.lastLogin != null)
+				return false;
+		} else if (!lastLogin.equals(other.lastLogin))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (profile != other.profile)
+			return false;
+		if (userName == null) {
+			if (other.userName != null)
+				return false;
+		} else if (!userName.equals(other.userName))
+			return false;
+		if (version != other.version)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "UserBE [id=" + id + ", version=" + version + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", userName="
+				+ userName + ", password=" + password + ", profile=" + profile
+				+ ", lastLogin=" + lastLogin + ", group=" + group + "]";
+	}
+	
+	
 }

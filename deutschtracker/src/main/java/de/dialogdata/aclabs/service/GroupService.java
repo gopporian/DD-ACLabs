@@ -20,6 +20,7 @@ import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
 import de.dialogdata.aclabs.enums.Level;
 import de.dialogdata.aclabs.exceptions.GroupExistsException;
+import de.dialogdata.aclabs.view.ViewUtils;
 
 @Stateless
 @NamedQueries({ @NamedQuery(name = GroupBE.FIND_BY_NAME, query = "Select e from GroupBE e where e.group.name = :"+GroupBE.FIND_BY_NAME_PARAM) })
@@ -68,17 +69,35 @@ public class GroupService implements IGroupService {
 		List<GroupBE> result = entityManager.createQuery(criteria.select(criteria.from(GroupBE.class))).getResultList();
 		return result;
 	}
+	
+	public GroupBE findGroupByName(String groupName){
+		
+		TypedQuery<GroupBE> query =  entityManager.createNamedQuery(GroupBE.FIND_BY_NAME,GroupBE.class);
+		query.setParameter(GroupBE.FIND_BY_NAME_PARAM, groupName);
+		if(query!=null)
+			System.out.println("fdsfsdfsdf");
+		List<GroupBE> result = query.getResultList();
+		if (result.iterator().hasNext())
+		{
+			return (GroupBE) result.iterator().next();
+		}
+		return null;
+	
+}
 
 	@Override
 	public CrudOperation createOrUpdate(GroupBE group) throws GroupExistsException {
 		CrudOperation operation;
+		
+		GroupBE foundGroup = this.findGroupByName(group.getName());
+		if (foundGroup != null){
+			throw new GroupExistsException("This Group already exists. ");
+		}
+		
 		if (group.getId() != null) {
 			entityManager.merge(group);
 			operation = CrudOperation.UPDATE;
 		} else {
-            assert group != null;
-			GroupBE found = entityManager.find(GroupBE.class, group.getName ( ));
-			if ( found != null ) throw new GroupExistsException ( "This Group already exists. " );
 			entityManager.persist(group);
 			operation = CrudOperation.CREATE;
 		}
