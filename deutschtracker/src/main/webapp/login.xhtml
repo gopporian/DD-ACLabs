@@ -8,20 +8,44 @@
   
     <h:head>
         <title>Login form</title>
+        <h:outputStylesheet name="bootstrap.css" />
+		<h:outputStylesheet name="forge-style.css" />
     </h:head>
     <h:body>
+   
+     <div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<h:link id="brandLink" outcome="/index.xhtml" styleClass="brand">Deutschtracker</h:link>
+			</div>
+		</div>
+	 </div>
+    
+    
+        <h:form id="login-form" method="POST" style="width:350px; height:140px;background-color:#00FF00;text-align:center;margin: 0 auto">
+        <h:messages/>
         
-        <h:form id="login-form" method="POST">
-         <h:messages/>
-           <h:outputText value="Username:"/>
-           <h:inputText value="#{auth.user}" id="user"/>
-           <br/>
-           <h:outputText value="Password:"/>
-           <h:inputSecret value="#{auth.password}" id="password"/>
-           <br/>
-           <h:commandButton id="button" value="Login" action="#{auth.logIn}"/>
-           <br/>
-         
-        </h:form>
+         <p:dialog id="dialog" position="center" header="Login" widgetVar="dlg"  style="width:350px; height:140px; background-color:#808080" >
+                 
+        	 <h:panelGrid columns="2" cellpadding="5" style="width:350px; height:140px; text-align:center">
+          		 <h:outputText value="Username:"/>
+         		 <p:inputText value="#{auth.user}" id="user"/>
+          
+         		 <h:outputText value="Password:"/>
+          		 <h:inputSecret value="#{auth.password}" id="password" />
+           
+           		<f:facet name="footer">
+           			<p:commandButton id="button" value="Login" action="#{auth.logIn}" style="background-color:#008000; width:100%"/>
+      			</f:facet>
+           
+          	 </h:panelGrid>
+           
+                 
+          	
+         </p:dialog>
+         </h:form>
+        
     </h:body>
+        
+    
 </html>

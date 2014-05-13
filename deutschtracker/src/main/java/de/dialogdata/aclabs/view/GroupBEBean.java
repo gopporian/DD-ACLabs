@@ -15,7 +15,7 @@ import de.dialogdata.aclabs.common.AbstractBEBean;
 import de.dialogdata.aclabs.entities.GroupBE;
 import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
-import de.dialogdata.aclabs.exceptions.GroupExistException;
+import de.dialogdata.aclabs.exceptions.GroupExistsException;
 import de.dialogdata.aclabs.service.GroupService;
 import de.dialogdata.aclabs.service.IGroupService;
 import de.dialogdata.aclabs.service.IUserService;
@@ -126,7 +126,7 @@ public class GroupBEBean extends AbstractBEBean implements Serializable {
 			case UPDATE:
 				return "view?faces-redirect=true&id=" + groupBE.getId();
 			}
-		} catch ( GroupExistException e )
+		} catch ( GroupExistsException e )
 		{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));	
 		}

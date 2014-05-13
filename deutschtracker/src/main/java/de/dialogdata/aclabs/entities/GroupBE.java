@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -14,12 +16,15 @@ import de.dialogdata.aclabs.enums.Level;
 
 @Entity
 @XmlRootElement
+@NamedQueries({ @NamedQuery(name = GroupBE.FIND_BY_NAME, query = "Select e from GroupBE e where e.name = :"+GroupBE.FIND_BY_NAME_PARAM)})
 public class GroupBE implements Serializable {
 
 	private static final long serialVersionUID = -420738800030250028L;
 	
 	public static final String FIND_BY_NAME = "GroupBE.FIND_BY_NAME";
 	public static final String FIND_BY_NAME_PARAM = "group";
+	public static final String FIND_BY_CLASS = "GroupBE.FIND_BY_CLASS";
+	public static final String FIND_BY_CLASS_PARAM = "aClass";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

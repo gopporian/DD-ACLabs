@@ -73,7 +73,7 @@
 			</h:panelGrid>
 
 			<div class="buttons">
-				<h:commandLink value="Save" action="#{userBEBean.update}" styleClass="btn btn-primary"/>
+				<h:commandLink value="Save" action="#{userBEBean.update}"  styleClass="btn btn-primary"/>
 				<c:choose>
 					<c:when test="#{!empty userBEBean.id}">
 						<h:link value="Cancel" outcome="view" styleClass="btn btn-primary">
