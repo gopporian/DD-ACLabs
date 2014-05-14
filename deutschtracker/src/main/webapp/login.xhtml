@@ -22,10 +22,11 @@
 	 </div>
     
     
-        <h:form id="login-form" method="POST" style="width:350px; height:140px;background-color:#00FF00;text-align:center;margin: 0 auto">
+        <h:form id="login-form" method="POST" ><!--  style="width:350px; height:140px;background-color:#00FF00;text-align:center;margin: 0 auto"--> 
         <h:messages/>
         
-         <p:dialog id="dialog" position="center" header="Login" widgetVar="dlg"  style="width:350px; height:140px; background-color:#808080" >
+         <p:dialog id="dialog" position="center" header="Login" widgetVar="dlg"  visible="true" resizable="false" closable="false" draggable="false"
+         	style="width:350px; height:140px; margin: 0 auto" >
                  
         	 <h:panelGrid columns="2" cellpadding="5" style="width:350px; height:140px; text-align:center">
           		 <h:outputText value="Username:"/>
