@@ -122,6 +122,7 @@ public class GroupBEBean extends AbstractBEBean implements Serializable {
 			CrudOperation result = groupService.createOrUpdate(groupBE);
 			switch (result) {
 			case CREATE:
+				this.example = new GroupBE ( );
 				return "search?faces-redirect=true";
 			case UPDATE:
 				return "view?faces-redirect=true&id=" + groupBE.getId();

@@ -14,6 +14,7 @@ import javax.inject.Named;
 import de.dialogdata.aclabs.common.AbstractBEBean;
 import de.dialogdata.aclabs.entities.ClassBE;
 import de.dialogdata.aclabs.entities.GroupBE;
+import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
 import de.dialogdata.aclabs.exceptions.ClassExistsException;
 import de.dialogdata.aclabs.service.GroupService;
@@ -122,6 +123,7 @@ public class ClassBEBean extends AbstractBEBean implements Serializable {
 			CrudOperation result = classService.createOrUpdate(classBE);
 			switch (result) {
 			case CREATE:
+				this.example = new ClassBE ( );
 				return "search?faces-redirect=true";
 			case UPDATE:
 				return "view?faces-redirect=true&id=" + classBE.getId();
