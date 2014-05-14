@@ -128,6 +128,7 @@ public class UserBEBean extends AbstractBEBean implements Serializable {
 			CrudOperation result = userSerivce.createOrUpdate(userBE);
 			switch (result) {
 			case CREATE:
+				this.example = new UserBE ( );
 				return "search?faces-redirect=true";
 			case UPDATE:
 				return "view?faces-redirect=true&id=" + this.userBE.getId();

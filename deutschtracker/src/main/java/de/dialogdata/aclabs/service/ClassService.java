@@ -90,7 +90,7 @@ public class ClassService implements IClassService {
 			operation = CrudOperation.UPDATE;
 		} else {
             assert aClass != null;
-			GroupBE found = entityManager.find(GroupBE.class, aClass.getId ( ));
+			ClassBE found = entityManager.find(ClassBE.class, aClass.getId ( ));
 			if ( found != null ) throw new ClassExistsException ( "This Class already exists. " );
 			entityManager.persist(aClass);
 			operation = CrudOperation.CREATE;
