@@ -30,9 +30,9 @@ public class ClassBE implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private GroupBE group;
 	@Column
-	private int beginHour;
+	private Integer beginHour;
 	@Column
-	private int endHour;
+	private Integer endHour;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

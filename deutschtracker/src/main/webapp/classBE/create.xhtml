@@ -59,14 +59,14 @@
 				
 				<h:outputLabel for="classBEBeanClassBEBeginHour" value="Begining hour:"/>
 				<h:panelGroup>
-					<h:inputText converter="javax.faces.Integer" id="classBEBeanClassBEBeginingHour" value="#{classBEBean.classBE.beginHour}"/>
+					<h:inputText id="classBEBeanClassBEBeginingHour" value="#{classBEBean.classBE.beginHour}" converter = "javax.faces.Integer"/>
 					<h:message for="classBEBeanClassBEBeginingHour" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
 				
 				<h:outputLabel for="classBEBeanClassBEEndHour" value="Ending hour:"/>
 				<h:panelGroup>
-					<h:inputText converter="javax.faces.Integer" id="classBEBeanClassBEEndingHour" value="#{classBEBean.classBE.endHour}"/>
+					<h:inputText id="classBEBeanClassBEEndingHour" value="#{classBEBean.classBE.endHour}" converter = "javax.faces.Integer"/>
 					<h:message for="classBEBeanClassBEEndingHour" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
