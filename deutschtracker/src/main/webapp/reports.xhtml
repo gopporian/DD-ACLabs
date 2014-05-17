@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/pageTemplate.xhtml">
+	
+	<f:metadata>
+		<f:viewParam name="page" value="#{userBEBean.page}"/>
+		<f:event type="preRenderView" listener="#{userBEBean.paginate}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Reports"/>
+
+	<ui:define name="header">
+		Report
+	</ui:define>
+
+	<ui:define name="subheader"/>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+	
+	<h:form>
+	<h:panelGrid columns="5">
+						
+				    <h:outputLabel value="Start"/>
+    			 	<p:calendar value="#{calendarBean.date1}" pattern="MM/dd/yyyy" /> 
+    				<h:outputLabel value="End"/>
+    				<p:calendar value="#{calendarBean.date2}" pattern="MM/dd/yyyy" /> 
+				    <h:commandButton value="Generate" action="#{raportBean.generate}" styleClass="btn btn-primary"/>						 
+	</h:panelGrid>
+	</h:form>
+	</ui:define>
+	
+	
+</ui:composition>

@@ -30,7 +30,7 @@ public class AuthorizationFilter implements Filter {
         UserBE user = (UserBE) req.getSession().getAttribute("user");
 
 
-        if ((user != null ) || req.getRequestURI().endsWith("login.xhtml")) {
+        if ((user != null ) || req.getRequestURI().endsWith("login.xhtml") || req.getRequestURI().contains("javax.faces.resource")) {
         	
             chain.doFilter(request, response);
         } else {
