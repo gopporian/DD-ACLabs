@@ -20,10 +20,10 @@ import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
 import de.dialogdata.aclabs.enums.Level;
 import de.dialogdata.aclabs.exceptions.GroupExistsException;
-import de.dialogdata.aclabs.view.ViewUtils;
 
 @Stateless
-@NamedQueries({ @NamedQuery(name = GroupBE.FIND_BY_NAME, query = "Select e from GroupBE e where e.group.name = :"+GroupBE.FIND_BY_NAME_PARAM) })
+@NamedQueries({ @NamedQuery(name = GroupBE.FIND_BY_NAME, query = "Select e from GroupBE e where e.group.name = :"
+		+ GroupBE.FIND_BY_NAME_PARAM) })
 public class GroupService implements IGroupService {
 
 	private static final long serialVersionUID = -4161299389234314491L;
@@ -50,14 +50,15 @@ public class GroupService implements IGroupService {
 
 		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
 		Root<GroupBE> root = countCriteria.from(GroupBE.class);
-		countCriteria = countCriteria.select(builder.count(root)).where(getSearchPredicates(searchParameters, root));
+		countCriteria = countCriteria.select(builder.count(root)).where(
+				getSearchPredicates(searchParameters, root));
 
 		// Populate pageItems
 
 		CriteriaQuery<GroupBE> criteria = builder.createQuery(GroupBE.class);
 		root = criteria.from(GroupBE.class);
-		TypedQuery<GroupBE> query = entityManager.createQuery(criteria.select(root).where(
-				getSearchPredicates(searchParameters, root)));
+		TypedQuery<GroupBE> query = entityManager.createQuery(criteria.select(
+				root).where(getSearchPredicates(searchParameters, root)));
 		query.setFirstResult(page * PAGE_SIZE).setMaxResults(PAGE_SIZE);
 		List<GroupBE> items = query.getResultList();
 		return items;
@@ -65,35 +66,36 @@ public class GroupService implements IGroupService {
 
 	@Override
 	public List<GroupBE> findAll() {
-		CriteriaQuery<GroupBE> criteria = this.entityManager.getCriteriaBuilder().createQuery(GroupBE.class);
-		List<GroupBE> result = entityManager.createQuery(criteria.select(criteria.from(GroupBE.class))).getResultList();
+		CriteriaQuery<GroupBE> criteria = this.entityManager
+				.getCriteriaBuilder().createQuery(GroupBE.class);
+		List<GroupBE> result = entityManager.createQuery(
+				criteria.select(criteria.from(GroupBE.class))).getResultList();
 		return result;
 	}
-	
-	public GroupBE findGroupByName(String groupName){
-		
-		TypedQuery<GroupBE> query =  entityManager.createNamedQuery(GroupBE.FIND_BY_NAME,GroupBE.class);
+
+	public GroupBE findGroupByName(String groupName) {
+
+		TypedQuery<GroupBE> query = entityManager.createNamedQuery(
+				GroupBE.FIND_BY_NAME, GroupBE.class);
 		query.setParameter(GroupBE.FIND_BY_NAME_PARAM, groupName);
-		if(query!=null)
-			System.out.println("fdsfsdfsdf");
 		List<GroupBE> result = query.getResultList();
-		if (result.iterator().hasNext())
-		{
+		if (result.iterator().hasNext()) {
 			return (GroupBE) result.iterator().next();
 		}
 		return null;
-	
-}
+
+	}
 
 	@Override
-	public CrudOperation createOrUpdate(GroupBE group) throws GroupExistsException {
+	public CrudOperation createOrUpdate(GroupBE group)
+			throws GroupExistsException {
 		CrudOperation operation;
-		
+
 		GroupBE foundGroup = this.findGroupByName(group.getName());
-		if (foundGroup != null){
+		if (foundGroup != null) {
 			throw new GroupExistsException("This Group already exists. ");
 		}
-		
+
 		if (group.getId() != null) {
 			entityManager.merge(group);
 			operation = CrudOperation.UPDATE;
@@ -115,14 +117,16 @@ public class GroupService implements IGroupService {
 		entityManager.flush();
 	}
 
-	private Predicate[] getSearchPredicates(GroupBE searchParameters, Root<GroupBE> root) {
+	private Predicate[] getSearchPredicates(GroupBE searchParameters,
+			Root<GroupBE> root) {
 
 		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 		List<Predicate> predicatesList = new ArrayList<Predicate>();
 
 		String name = searchParameters.getName();
 		if (name != null && !"".equals(name)) {
-			predicatesList.add(builder.like(root.<String> get("name"), '%' + name + '%'));
+			predicatesList.add(builder.like(root.<String> get("name"),
+					'%' + name + '%'));
 		}
 		Level level = searchParameters.getLevel();
 		if (level != null) {
@@ -131,10 +135,11 @@ public class GroupService implements IGroupService {
 
 		return predicatesList.toArray(new Predicate[predicatesList.size()]);
 	}
-	
+
 	@Override
 	public List<GroupBE> getGroupsForClass(Long classId) {
-		TypedQuery<GroupBE> query =  entityManager.createNamedQuery(GroupBE.FIND_BY_CLASS,GroupBE.class);
+		TypedQuery<GroupBE> query = entityManager.createNamedQuery(
+				GroupBE.FIND_BY_CLASS, GroupBE.class);
 		query.setParameter(GroupBE.FIND_BY_CLASS_PARAM, classId);
 		return query.getResultList();
 	}

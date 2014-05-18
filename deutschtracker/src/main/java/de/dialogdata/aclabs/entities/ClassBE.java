@@ -23,7 +23,9 @@ public class ClassBE implements Serializable {
 	public static final String FIND_BY_DAY_PARAM = "day";
 
 	@Column
-	private String name;
+	private String name; // name = primary key?? vezi implementare
+							// findClassesByDay(DayOfWeek day) din
+							// ScheduleService
 	@Column
 	private DayOfWeek day;
 
