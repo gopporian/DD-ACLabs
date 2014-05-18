@@ -89,6 +89,11 @@ public class ClassBEBean extends AbstractBEBean implements Serializable {
 		return this.classBE;
 	}
 
+	
+	public void setClassBE(ClassBE classBE) {
+		this.classBE = classBE;
+	}
+
 	public String create() {
 		return "create?faces-redirect=true";
 	}

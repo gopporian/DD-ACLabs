@@ -17,13 +17,16 @@ import javax.persistence.criteria.Root;
 
 import de.dialogdata.aclabs.entities.ClassBE;
 import de.dialogdata.aclabs.entities.GroupBE;
+import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.CrudOperation;
 import de.dialogdata.aclabs.enums.DayOfWeek;
 import de.dialogdata.aclabs.exceptions.ClassExistsException;
+import de.dialogdata.aclabs.exceptions.UserExistsException;
 
 @Stateless
 @NamedQueries({ @NamedQuery(name = ClassBE.FIND_BY_GROUP, query = "Select e from ClassBE e where e.class.group = :"+ClassBE.FIND_BY_GROUP_PARAM) , 
-                @NamedQuery(name = ClassBE.FIND_BY_DAY, query = "Select e from ClassBE e where e.class.day = :"+ClassBE.FIND_BY_DAY_PARAM) })
+                @NamedQuery(name = ClassBE.FIND_BY_DAY, query = "Select e from ClassBE e where e.class.day = :"+ClassBE.FIND_BY_DAY_PARAM) ,
+                @NamedQuery(name = ClassBE.FIND_BY_NAME , query = "Select e from ClassBE e where e.class.name = :"+ClassBE.FIND_BY_NAME_PARAM)})
 public class ClassService implements IClassService {
 
 	private static final long serialVersionUID = 6537784655524040506L;
@@ -51,6 +54,12 @@ public class ClassService implements IClassService {
 	@Override
 	public ClassBE findClass(DayOfWeek day) {
 		ClassBE found = entityManager.find(ClassBE.class, day);
+		return found;
+	}
+	
+	@Override
+	public ClassBE findClass(String name) {
+		ClassBE found = entityManager.find(ClassBE.class, name);
 		return found;
 	}
 
@@ -81,17 +90,36 @@ public class ClassService implements IClassService {
 		List<ClassBE> result = entityManager.createQuery(criteria.select(criteria.from(ClassBE.class))).getResultList();
 		return result;
 	}
+	
+       public ClassBE findClassByName(String className){
+		
+		TypedQuery<ClassBE> query =  entityManager.createNamedQuery(ClassBE.FIND_BY_NAME,ClassBE.class);
+		query.setParameter(ClassBE.FIND_BY_NAME_PARAM, className);
+		if(query!=null)
+			System.out.println("fdsfsdfsdf");
+		List<ClassBE> result = query.getResultList();
+		if (result.iterator().hasNext())
+		{
+			return (ClassBE) result.iterator().next();
+		}
+		return null;
+	
+}
 
 	@Override
 	public CrudOperation createOrUpdate(ClassBE aClass) throws ClassExistsException {
 		CrudOperation operation;
+		
+		ClassBE foundClass = this.findClassByName(aClass.getName());
+		if (foundClass != null){
+			throw new ClassExistsException("This Class already exists. ");
+		}
+		
 		if (aClass.getId() != null) {
 			entityManager.merge(aClass);
 			operation = CrudOperation.UPDATE;
 		} else {
             assert aClass != null;
-			ClassBE found = entityManager.find(ClassBE.class, aClass.getId ( ));
-			if ( found != null ) throw new ClassExistsException ( "This Class already exists. " );
 			entityManager.persist(aClass);
 			operation = CrudOperation.CREATE;
 		}
