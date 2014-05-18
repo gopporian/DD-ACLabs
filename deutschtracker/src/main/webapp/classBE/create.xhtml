@@ -43,24 +43,30 @@
 					<h:message for="classBEBeanClassBEName" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
-				
-				<h:outputLabel for="classBEBeanClassBEDay" value="Day:"/>
+				<h:outputLabel for="classBEBeanClassBEDayOfWeek" value="Day:"/>
 				<h:panelGroup>
-					<h:inputText id="classBEBeanClassBEDay" value="#{classBEBean.classBE.day}"/>
-					<h:message for="classBEBeanClassBEDay" styleClass="error"/>
+					<h:selectOneMenu id="classBEBeanClassBEDayOfWeek" value="#{classBEBean.classBE.day}">
+						<f:selectItem/>
+						<f:selectItem itemValue="Monday"/>
+						<f:selectItem itemValue="Tuesday"/>
+						<f:selectItem itemValue="Wednesday"/>
+						<f:selectItem itemValue="Thursday"/>
+						<f:selectItem itemValue="Friday"/>
+					</h:selectOneMenu>
+					<h:message for="classBEBeanClassBEDayOfWeek" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
 				
 				<h:outputLabel for="classBEBeanClassBEBeginHour" value="Begining hour:"/>
 				<h:panelGroup>
-					<h:inputText id="classBEBeanClassBEBeginingHour" value="#{classBEBean.classBE.beginHour}"/>
+					<h:inputText id="classBEBeanClassBEBeginingHour" value="#{classBEBean.classBE.beginHour}" converter = "javax.faces.Integer"/>
 					<h:message for="classBEBeanClassBEBeginingHour" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
 				
 				<h:outputLabel for="classBEBeanClassBEEndHour" value="Ending hour:"/>
 				<h:panelGroup>
-					<h:inputText id="classBEBeanClassBEEndingHour" value="#{classBEBean.classBE.endHour}"/>
+					<h:inputText id="classBEBeanClassBEEndingHour" value="#{classBEBean.classBE.endHour}" converter = "javax.faces.Integer"/>
 					<h:message for="classBEBeanClassBEEndingHour" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>

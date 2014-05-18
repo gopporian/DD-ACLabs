@@ -16,6 +16,8 @@ public interface IClassService extends Serializable {
 
 	public ClassBE findClass(Long id);
 	
+	public ClassBE findClass ( String name );
+	
 	public ClassBE findClass(GroupBE group);
 	
 	public ClassBE findClass(DayOfWeek day);

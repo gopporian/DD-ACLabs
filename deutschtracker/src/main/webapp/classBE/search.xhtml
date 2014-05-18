@@ -31,15 +31,22 @@
 					<h:panelGrid columnClasses="label,component,required" columns="3">
 						<h:outputLabel for="classBEBeanExampleGroup" value="Group:"/>
 						<h:panelGroup>
-							<h:inputText id="classBEBeanExampleGroup" value="#{classBEBean.example.group}"/>
+							<h:inputText id="classBEBeanExampleGroup" value="#{classBEBean.example.name}"/>
 							<h:message for="classBEBeanExampleGroup" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
 						
-						<h:outputLabel for="classBEBeanExampleDay" value="Day:"/>
+						<h:outputLabel for="classBEBeanExampleDayOfWeek" value="Day:"/>
 						<h:panelGroup>
-							<h:inputText id="classBEBeanExampleDay" value="#{classBEBean.example.day}"/>
-							<h:message for="classBEBeanExampleDay" styleClass="error"/>
+							<h:selectOneMenu id="classBEBeanExampleDayOfWeek" value="#{classBEBean.example.day}">
+						  			<f:selectItem/>
+									<f:selectItem itemValue="Monday"/>
+									<f:selectItem itemValue="Tuesday"/>
+									<f:selectItem itemValue="Wednesday"/>
+									<f:selectItem itemValue="Thursday"/>
+									<f:selectItem itemValue="Friday"/>
+							</h:selectOneMenu>
+							<h:message for="classBEBeanExampleDayOfWeek" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
 						
@@ -56,7 +63,7 @@
 					<f:facet name="header">
 						<h:outputText value="Group"/>
 					</f:facet>
-					<h:link outcome="/classBE/view">
+					<h:link outcome="/classBE/search">
 						<f:param name="id" value="#{_item.id}"/>
 						<h:outputText id="itemGroup" value="#{_item.group}"/>
 					</h:link>
@@ -66,7 +73,7 @@
 					<f:facet name="header">
 						<h:outputText value="Day"/>
 					</f:facet>
-					<h:link outcome="/classBE/view">
+					<h:link outcome="/classBE/search">
 						<f:param name="id" value="#{_item.id}"/>
 						<h:outputText id="itemDay" value="#{_item.day}"/>
 					</h:link>

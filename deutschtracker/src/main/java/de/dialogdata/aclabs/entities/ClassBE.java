@@ -9,18 +9,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import de.dialogdata.aclabs.enums.DayOfWeek;
 
 @Entity
 @XmlRootElement
+@NamedQueries({ @NamedQuery(name = ClassBE.FIND_BY_NAME, query = "Select e from ClassBE e where e.name = :"+ClassBE.FIND_BY_NAME_PARAM)})
 public class ClassBE implements Serializable {
 
 	public static final String FIND_BY_GROUP = "ClassBE.FIND_BY_GROUP";
 	public static final String FIND_BY_GROUP_PARAM = "group";
 	public static final String FIND_BY_DAY = "ClassBE.FIND_BY_DAY";
 	public static final String FIND_BY_DAY_PARAM = "day";
+	public static final String FIND_BY_NAME = "ClassBE.FIND_BY_NAME";
+	public static final String FIND_BY_NAME_PARAM = "name";
 
 	@Column
 	private String name; // name = primary key?? vezi implementare
