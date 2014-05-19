@@ -25,7 +25,7 @@ public class AttendanceBE implements Serializable {
 	@OneToOne(fetch = FetchType.EAGER)
 	private ClassBE curs;
 
-	@Column
-	private List<UserBE> users;
+//	@Column
+//	private List<UserBE> users;
 
 }
