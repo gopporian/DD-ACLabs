@@ -57,6 +57,16 @@
 				</h:panelGroup>
 				<h:outputText/>
 				
+				<h:outputLabel for="classBEBeanClassBEGroup" value="Group:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{groupBEBean.converter}" id="classBEBeanClassBEGroup" value="#{classBEBean.classBE.group}">
+						<f:selectItem/>
+						<f:selectItems itemLabel="#{forgeview:display(_item)}" itemValue="#{_item}" value="#{groupBEBean.all}" var="_item"/>
+					</h:selectOneMenu>
+					<h:message for="classBEBeanClassBEGroup" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				
 				<h:outputLabel for="classBEBeanClassBEBeginHour" value="Begining hour:"/>
 				<h:panelGroup>
 					<h:inputText id="classBEBeanClassBEBeginingHour" value="#{classBEBean.classBE.beginHour}" converter = "javax.faces.Integer"/>

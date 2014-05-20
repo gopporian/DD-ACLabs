@@ -29,12 +29,15 @@
 				<h:panelGroup styleClass="search">
 
 					<h:panelGrid columnClasses="label,component,required" columns="3">
-						<h:outputLabel for="classBEBeanExampleGroup" value="Group:"/>
+					
+					
+						<h:outputLabel for="classBEBeanExampleName" value="Name:"/>
 						<h:panelGroup>
-							<h:inputText id="classBEBeanExampleGroup" value="#{classBEBean.example.name}"/>
-							<h:message for="classBEBeanExampleGroup" styleClass="error"/>
+							<h:inputText id="classBEBeanExampleName" value="#{classBEBean.example.name}"/>
+							<h:message for="classBEBeanExampleName" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
+						
 						
 						<h:outputLabel for="classBEBeanExampleDayOfWeek" value="Day:"/>
 						<h:panelGroup>
@@ -61,11 +64,11 @@
 			<h:dataTable id="classBEBeanPageItems" styleClass="data-table" value="#{classBEBean.pageItems}" var="_item">
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Group"/>
+						<h:outputText value="Name"/>
 					</f:facet>
 					<h:link outcome="/classBE/search">
 						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemGroup" value="#{_item.group}"/>
+						<h:outputText id="itemName" value="#{_item.name}"/>
 					</h:link>
 				</h:column>
 				
