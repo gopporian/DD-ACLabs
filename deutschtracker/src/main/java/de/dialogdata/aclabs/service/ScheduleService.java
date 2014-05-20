@@ -1,5 +1,7 @@
 package de.dialogdata.aclabs.service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -9,8 +11,11 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 
+import de.dialogdata.aclabs.entities.AttendanceBE;
 import de.dialogdata.aclabs.entities.ClassBE;
+import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.DayOfWeek;
+import de.dialogdata.aclabs.view.RaportBean;
 
 @Stateless
 public class ScheduleService implements IScheduleService {
@@ -61,5 +66,22 @@ public class ScheduleService implements IScheduleService {
 				criteria.select(criteria.from(ClassBE.class))).getResultList();
 		return result;
 	}
+	
+	public List<AttendanceBE> findAttendanceUsers(Date start, Date end){
+		
+		List<AttendanceBE> listUsers = new ArrayList<AttendanceBE>();
+		TypedQuery<AttendanceBE> query =  entityManager.createNamedQuery(RaportBean.FIND_BY_DATE,AttendanceBE.class);
+		query.setParameter(RaportBean.FIND_BY_DATE_START_PARAM, start);
+		query.setParameter(RaportBean.FIND_BY_DATE_END_PARAM, end);
+		if(query!=null)
+			System.out.println("fdsfsdfsdf");
+		List<AttendanceBE> result = query.getResultList();
+		if (result.iterator().hasNext())
+		{
+			listUsers.add(result.iterator().next());
+		}
+		return null;
+	
+}
 
 }

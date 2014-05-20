@@ -27,13 +27,27 @@
 	
 	<h:form>
 	<h:panelGrid columns="5">
-						
+					
 				    <h:outputLabel value="Start"/>
-    			 	<p:calendar value="#{calendarBean.date1}" pattern="MM/dd/yyyy" /> 
+    			 	<p:calendar id="popup" value="#{calendarBean.startDate}" /> 
     				<h:outputLabel value="End"/>
-    				<p:calendar value="#{calendarBean.date2}" pattern="MM/dd/yyyy" /> 
+    				<p:calendar value="#{calendarBean.endDate}"/> 
 				    <h:commandButton value="Generate" action="#{raportBean.generate}" styleClass="btn btn-primary"/>						 
 	</h:panelGrid>
+	
+	<p:dataTable value="#{raportBean}">
+    <p:column headerText="User">
+        <h:outputText value="#{raportBean.users}" />
+    </p:column>
+ 
+    <p:column headerText="Hours">
+        <h:outputText />
+    </p:column>
+ 
+    <p:column headerText="Attendance">
+        <h:outputText />
+    </p:column>
+	</p:dataTable>
 	</h:form>
 	</ui:define>
 	

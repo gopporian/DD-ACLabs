@@ -1,10 +1,20 @@
 package de.dialogdata.aclabs.listner;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 import javax.ejb.EJB;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import de.dialogdata.aclabs.entities.AttendanceBE;
+import de.dialogdata.aclabs.entities.ClassBE;
 import de.dialogdata.aclabs.entities.UserBE;
 import de.dialogdata.aclabs.enums.Profiles;
 import de.dialogdata.aclabs.exceptions.UserExistsException;
@@ -51,6 +61,19 @@ public class InitializationListner implements ServletContextListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		AttendanceBE attendanceBE = new AttendanceBE();
+		
+		Date d = new Date();
+		attendanceBE.setDate(d);
+		
+		ClassBE curs = new ClassBE();
+		attendanceBE.setCurs(curs );
+		
+		List<UserBE> users = new ArrayList<UserBE>();
+		users.add(anUser);
+		users.add(adminUser);
+		attendanceBE.setUsers(users);
+		
 		
 	}
 	

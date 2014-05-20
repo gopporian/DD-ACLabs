@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,7 +26,32 @@ public class AttendanceBE implements Serializable {
 	@OneToOne(fetch = FetchType.EAGER)
 	private ClassBE curs;
 
+	@OneToMany(fetch = FetchType.EAGER)
 //	@Column
-//	private List<UserBE> users;
+	private List<UserBE> users;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public ClassBE getCurs() {
+		return curs;
+	}
+
+	public void setCurs(ClassBE curs) {
+		this.curs = curs;
+	}
+
+	public List<UserBE> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<UserBE> users) {
+		this.users = users;
+	}
 
 }
